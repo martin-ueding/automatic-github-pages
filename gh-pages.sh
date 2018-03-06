@@ -3,6 +3,8 @@
 
 set -e
 set -u
+  old_branch=$(git rev-parse --abbrev-ref HEAD)
+set -x
 
 repo_dir="$(pwd)"
 old_branch=$(git rev-parse --abbrev-ref HEAD)
