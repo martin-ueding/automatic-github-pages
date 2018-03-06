@@ -5,10 +5,10 @@ set -e
 set -u
 
 repo_dir="$(pwd)"
+old_branch=$(git rev-parse --abbrev-ref HEAD)
 
 # Create the `gh-pages` branch if needed.
 if ! git branch | grep gh-pages; then
-  old_branch=$(git rev-parse --abbrev-ref HEAD)
   git checkout --orphan gh-pages
   git reset
   git commit --allow-empty -m "Initial pages branch"
