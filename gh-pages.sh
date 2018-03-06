@@ -15,7 +15,7 @@ if ! git branch | grep gh-pages; then
   git checkout -f "$old_branch"
 fi
 
-git pull
+git pull origin gh-pages
 
 workdir="$(mktemp -d)"
 
