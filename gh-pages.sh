@@ -4,6 +4,8 @@
 set -e
 set -u
 
+repo_dir="$(pwd)"
+
 # Create the `gh-pages` branch if needed.
 if ! git branch | grep gh-pages; then
   old_branch=$(git rev-parse --abbrev-ref HEAD)
@@ -15,9 +17,22 @@ fi
 
 git pull
 
-# Check out working directory.
 workdir="$(mktemp -d)"
+
+cleanup() {
+    rm -rf "$workdir"
+    cd "$repo_dir"
+    git worktree prune
+}
+
+trap cleanup EXIT
+
+# Check out working directory.
 git worktree add "$workdir" gh-pages
+
+pushd "$workdir"
+git pull
+popd
 
 # Build documentation in current branch.
 doxygen
@@ -32,6 +47,3 @@ pushd "$workdir"
 git add .
 git commit -m 'New documentation'
 popd
-
-rm -rf "$workdir"
-git worktree prune
