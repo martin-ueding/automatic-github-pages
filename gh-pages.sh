@@ -13,6 +13,8 @@ if ! git branch | grep gh-pages; then
   git checkout -f "$old_branch"
 fi
 
+git pull
+
 # Check out working directory.
 workdir="$(mktemp -d)"
 git worktree add "$workdir" gh-pages
