@@ -15,7 +15,7 @@ if ! git branch | grep gh-pages; then
   git checkout -f "$old_branch"
 fi
 
-git pull origin gh-pages
+git pull origin "$old_branch"
 
 workdir="$(mktemp -d)"
 
@@ -31,7 +31,7 @@ trap cleanup EXIT
 git worktree add "$workdir" gh-pages
 
 pushd "$workdir"
-git pull
+git pull origin gh-pages
 popd
 
 # Build documentation in current branch.
