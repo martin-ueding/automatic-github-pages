@@ -49,3 +49,5 @@ pushd "$workdir"
 git add .
 git commit -m 'New documentation'
 popd
+
+git push origin gh-pages
